@@ -1,0 +1,23 @@
+class Solution{
+  public:
+    
+    bool isIsomorphic(Node *root1,Node *root2)
+    {
+// If both trees are empty, return true
+        if (!root1 && !root2)
+            return true;
+
+        // If one of the trees is empty, return false
+        if (!root1 || !root2)
+            return false;
+
+        // If the data of both nodes doesn't match, return false
+        if (root1->data != root2->data)
+            return false;
+
+        // Recursively check if the left subtrees are isomorphic and
+        // the right subtrees are isomorphic
+        return (isIsomorphic(root1->left, root2->left) && isIsomorphic(root1->right, root2->right)) ||
+            (isIsomorphic(root1->left, root2->right) && isIsomorphic(root1->right, root2->left));
+    }
+};
