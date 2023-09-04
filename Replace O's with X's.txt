@@ -1,0 +1,30 @@
+class Solution {
+public:
+    std::vector<std::vector<char>> fill(int n, int m, std::vector<std::vector<char>>& mat) {
+        if (n == 0 || m == 0) return mat;
+        
+        std::vector<std::vector<int>> dirs = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+        
+        std::function<void(int, int)> dfs = [&](int i, int j) {
+            if (i < 0 || i >= n || j < 0 || j >= m || mat[i][j] != 'O') return;
+            mat[i][j] = '1'; 
+            for (const auto& dir : dirs) dfs(i + dir[0], j + dir[1]);
+        };
+        
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if ((i == 0 || i == n - 1 || j == 0 || j == m - 1) && mat[i][j] == 'O') {
+                    dfs(i, j);
+                }
+            }
+        }
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (mat[i][j] == 'O') mat[i][j] = 'X';
+                else if (mat[i][j] == '1') mat[i][j] = 'O';
+            }
+        }
+        
+        return mat;
+    }
+};
