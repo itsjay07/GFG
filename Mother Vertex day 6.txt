@@ -1,0 +1,35 @@
+class Solution {
+public:
+    void DFS(vector<int> adj[], int v, vector<bool>& visited) {
+        visited[v] = true;
+        
+        for (int u : adj[v]) {
+            if (!visited[u]) {
+                DFS(adj, u, visited);
+            }
+        }
+    }
+
+    int findMotherVertex(int V, vector<int> adj[]) {
+        vector<bool> visited(V, false);
+        int motherVertex = -1;
+
+        for (int v = 0; v < V; v++) {
+            if (!visited[v]) {
+                DFS(adj, v, visited);
+                motherVertex = v;
+            }
+        }
+        
+        fill(visited.begin(), visited.end(), false);
+        DFS(adj, motherVertex, visited);
+
+        for (bool visit : visited) {
+            if (!visit) {
+                return -1;
+            }
+        }
+
+        return motherVertex;
+    }
+};
