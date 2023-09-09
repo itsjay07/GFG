@@ -1,0 +1,28 @@
+class Solution
+{
+public:
+    int kthLargest(Node *root, int K)
+    {
+        stack<Node*> s;
+        Node* curr = root;
+
+        while (curr || !s.empty())
+        {
+            while (curr)
+            {
+                s.push(curr);
+                curr = curr->right;
+            }
+
+            curr = s.top();
+            s.pop();
+            
+            if (--K == 0)
+                return curr->data;
+
+            curr = curr->left;
+        }
+
+        return -1; // K is out of range
+    }
+};
