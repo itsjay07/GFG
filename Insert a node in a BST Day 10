@@ -1,0 +1,11 @@
+class Solution {
+public:
+    Node* insert(Node* root, int x) {
+        if (root == nullptr) return new Node(x);
+        
+        if (x < root->data) root->left = insert(root->left, x);
+        else if (x > root->data) root->right = insert(root->right, x);
+        
+        return root;
+    }
+};
